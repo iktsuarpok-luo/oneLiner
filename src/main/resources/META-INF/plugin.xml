@@ -7,12 +7,27 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.iktsuarpokluo.oneliner.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.iktsuarpokluo.oneliner.services.MyProjectService"/>
+        <statusBarWidgetFactory id="oneLiner"
+                                implementation="com.github.iktsuarpokluo.oneliner.OneLinerFactory"
+                                order="after writeActionWidget"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.iktsuarpokluo.oneliner.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    <actions>
+        <action id="com.github.iktsuarpokluo.oneliner.actions.PageUp"
+                class="com.github.iktsuarpokluo.oneliner.actions.PageUp"
+                text="PageUp"
+                description="PageUp">
+            <keyboard-shortcut
+                keymap="$default"
+            first-keystroke="control COMMA"/>
+        </action>
+        <action id="com.github.iktsuarpokluo.oneliner.actions.PageDown"
+                class="com.github.iktsuarpokluo.oneliner.actions.PageUp"
+                text="PageDown"
+                description="PageDown">
+            <keyboard-shortcut
+            keymap="$default"
+            first-keystroke="control PERIOD"/>
+        </action>
+    </actions>
 </idea-plugin>
