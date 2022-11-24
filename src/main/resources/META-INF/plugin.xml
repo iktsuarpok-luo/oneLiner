@@ -9,7 +9,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <statusBarWidgetFactory id="oneLiner"
                                 implementation="com.github.iktsuarpokluo.oneliner.OneLinerFactory"
-                                order="after writeActionWidget"/>
+                                order="first"/>
     </extensions>
 
     <actions>
@@ -19,15 +19,19 @@
                 description="PageUp">
             <keyboard-shortcut
                 keymap="$default"
-            first-keystroke="control COMMA"/>
+                first-keystroke="alt Z"
+            />
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
         <action id="com.github.iktsuarpokluo.oneliner.actions.PageDown"
-                class="com.github.iktsuarpokluo.oneliner.actions.PageUp"
+                class="com.github.iktsuarpokluo.oneliner.actions.PageDown"
                 text="PageDown"
                 description="PageDown">
             <keyboard-shortcut
-            keymap="$default"
-            first-keystroke="control PERIOD"/>
+                keymap="$default"
+                first-keystroke="alt X"
+            />
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>
 </idea-plugin>
