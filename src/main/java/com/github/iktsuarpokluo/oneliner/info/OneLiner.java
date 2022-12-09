@@ -1,37 +1,21 @@
 package com.github.iktsuarpokluo.oneliner.info;
 
+import com.github.iktsuarpokluo.oneliner.config.OneLinerState;
 import com.intellij.ide.util.PropertiesComponent;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class OneLiner {
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public int getCurrentLine() {
-        return currentLine;
-    }
-
-    public void setCurrentLine(int currentLine) {
-        this.currentLine = currentLine;
-        PropertiesComponent properies = PropertiesComponent.getInstance();
-        properies.setValue("com.github.iktsuarpokluo.oneliner.pageNumber", currentLine, 0);
-    }
-
     private String url;
-    private int currentLine;
     private ArrayList<String> lines;
 
-    public OneLiner(String url, int lineNumber) {
-        this.url = url;
-        this.currentLine = lineNumber;
-        this.lines = readFile(this.url);
+    public OneLiner() {
+        OneLinerState settings = OneLinerState.getInstance();
+        this.lines = readFile(settings.url);
+        this.url = settings.url;
+        settings.lineRange = this.lines.size();
     }
 
     public ArrayList<String> readFile(String url) {
@@ -71,18 +55,30 @@ public class OneLiner {
     }
 
     public String getText(){
-        return this.lines.get(this.currentLine);
+        OneLinerState settings = OneLinerState.getInstance();
+        if (!settings.url.equals(this.url)){
+            this.lines = readFile(settings.url);
+            this.url = settings.url;
+            settings.lineRange = this.lines.size();
+        }
+
+        float percent = (settings.currentLine + 1) / this.lines.size() * 100;
+        DecimalFormat decimalFormat = new DecimalFormat( "0.00" );
+        String p = decimalFormat.format(percent);
+        return this.lines.get(Math.min(settings.currentLine, this.lines.size() - 1)) + " " + p + "%";
     }
 
     public void pageUp(){
-        if (this.currentLine > 0){
-            setCurrentLine(this.currentLine - 1);
+        OneLinerState settings = OneLinerState.getInstance();
+        if (settings.currentLine > 0){
+            settings.currentLine = settings.currentLine - 1;
         }
     }
 
     public void pageDown(){
-        if (this.currentLine < this.lines.size() - 1){
-            setCurrentLine(this.currentLine + 1);
+        OneLinerState settings = OneLinerState.getInstance();
+        if (settings.currentLine < this.lines.size() - 1){
+            settings.currentLine = settings.currentLine + 1;
         }
     }
 

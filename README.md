@@ -16,6 +16,11 @@
 
 <!-- Plugin description -->
 This plugin displays the content of the specified txt file in the status bar of the application, hoping to provide some fun content while writing code.
+
+- save txt file at /Users/bytedance/Documents/oneLiner.txt
+- option+Z to pageUp and option+X to pageDown
+
+We will support custom file path and current page functions in the next version, and provide a shortcut key to close the plugin.
 <!-- Plugin description end -->
 
 ## Installation

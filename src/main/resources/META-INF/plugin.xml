@@ -10,6 +10,13 @@
         <statusBarWidgetFactory id="oneLiner"
                                 implementation="com.github.iktsuarpokluo.oneliner.OneLinerFactory"
                                 order="first"/>
+        <applicationConfigurable
+                parentId="root"
+                instance="com.github.iktsuarpokluo.oneliner.config.OneLinerSettingsConfigurable"
+                id="com.github.iktsuarpokluo.oneliner.config.OneLinerSettingsConfigurable"
+                displayName="OneLiner Settings"/>
+        <applicationService
+                serviceImplementation="com.github.iktsuarpokluo.oneliner.config.OneLinerState"/>
     </extensions>
 
     <actions>
@@ -21,7 +28,6 @@
                 keymap="$default"
                 first-keystroke="alt Z"
             />
-            <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
         <action id="com.github.iktsuarpokluo.oneliner.actions.PageDown"
                 class="com.github.iktsuarpokluo.oneliner.actions.PageDown"
@@ -31,7 +37,15 @@
                 keymap="$default"
                 first-keystroke="alt X"
             />
-            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+        <action id="com.github.iktsuarpokluo.oneliner.actions.CloseAndReopen"
+                class="com.github.iktsuarpokluo.oneliner.actions.CloseAndReopen"
+                text="Close"
+                description="Close">
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="alt C"
+            />
         </action>
     </actions>
 </idea-plugin>
